@@ -1,31 +1,33 @@
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
-const volumeBtn = document.getElementById('volume');
+const volumeSlider = document.getElementById('volume');
 const progress = document.getElementById('progress');
 
-// Play the audio
+// Reproducir musica
 playBtn.addEventListener('click', () => {
   audio.play();
 });
 
-// Pause the audio
+// Pausar musica
 pauseBtn.addEventListener('click', () => {
   audio.pause();
 });
 
-// Toggle mute/unmute
-volumeBtn.addEventListener('click', () => {
-  audio.muted = !audio.muted;
+// Cambiar el volumen
+volumeSlider.addEventListener('input', (event) => {
+  const volumeValue = event.target.value / 100; // Convertimos el rango 0-100 a 0-1
+  audio.volume = volumeValue; // Ajustamos el volumen del audio
+  console.log(`Volumen ajustado a: ${volumeValue}`);
 });
 
-// Update progress bar as the audio plays
+// Barra de progreso
 audio.addEventListener('timeupdate', () => {
   const percent = (audio.currentTime / audio.duration) * 100;
   progress.value = percent;
 });
 
-// Seek functionality
+// Progreso que lleva el audio
 progress.addEventListener('input', () => {
   audio.currentTime = (progress.value / 100) * audio.duration;
 });
